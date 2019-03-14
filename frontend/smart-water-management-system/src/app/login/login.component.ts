@@ -21,9 +21,10 @@ export class LoginComponent implements OnInit {
   login() {
     let username = this.loginForm.value.username;
     let password = this.loginForm.value.password;
-
-    localStorage.setItem('userId', '5c882843e833d936baff9d47');
-    localStorage.setItem('password', 'a8dae2c3ad1119923f9742eda3a525d4');
   }
+
+  get username() { return this.loginForm.get('username'); }
+
+  get password() { return this.loginForm.get('password'); }
 
 }
