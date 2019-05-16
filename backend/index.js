@@ -1,6 +1,7 @@
 const express = require("express"),
   admin = require("firebase-admin"),
-  http = require("http");
+  http = require("http"),
+  axios = require("axios");
 
 const serviceAccount = require("./config/smart-water-server-admin.json");
 
@@ -27,6 +28,51 @@ app.use(function(req, res, next) {
 //Carrega o database.
 let db = admin.firestore();
 
+const sigfoxApiUrl = "https://api.sigfox.com";
+app.post("/sigfoxDevice", (req, res) => {
+  let auth = req.body.auth;
+
+  //Realiza a requisição para o Sigfox, buscando o device vinculado a conta informada.
+  axios
+    .get(sigfoxApiUrl + "/v2/devices?limit=1", {
+      headers: {
+        Authorization: "Basic " + auth
+      }
+    })
+    .then(resp => {
+      var data = resp.data;
+      res.status(200).json(data);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: "Não foi possível encontrar devices para a conta informada."
+      });
+    });
+});
+
+app.post("/deviceMessages", (req, res) => {
+  var deviceId = req.body.deviceId;
+  var auth = req.body.auth;
+
+  axios
+    .get(sigfoxApiUrl + "/v2/devices/" + deviceId + "/messages", {
+      headers: {
+        Authorization: "Basic " + auth
+      }
+    })
+    .then(resp => {
+      var data = resp.data;
+      res.status(200).json(data);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: "Não foi possível buscar as mensagens do device informado."
+      });
+    });
+});
+
 app.post("/sigfoxCredentials", (req, res) => {
   let username = req.body.login;
   let password = req.body.password;
@@ -47,8 +93,8 @@ app.post("/sigfoxCredentials", (req, res) => {
           snapshot.forEach(doc => {
             //Gera o token de acesso para o sistema
             res.status(200).json({
-                apiUser: doc.get('apiUser'),
-                apiPassword: doc.get('apiPassword')
+              apiUser: doc.get("apiUser"),
+              apiPassword: doc.get("apiPassword")
             });
           });
         } else {

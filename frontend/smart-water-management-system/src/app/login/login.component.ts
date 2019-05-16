@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
       response => {
         let apiUser = response.body.apiUser;
         let apiPassword = response.body.apiPassword;
-        localStorage.setItem('apiUser', apiUser);
-        localStorage.setItem('apiPassword', apiPassword);
+        localStorage.setItem('auth', window.btoa(apiUser + ':' + apiPassword));
         this.router.navigate(['/dashboard']);
       },
       error => {
+          //Adicionar tratamento para erros.
         console.log(error);
       }
     );
