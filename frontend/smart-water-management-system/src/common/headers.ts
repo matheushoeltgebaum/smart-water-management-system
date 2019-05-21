@@ -12,16 +12,4 @@ export class SmartWaterHeaders {
 
     return header;
   }
-
-  static getAuth(authorization) {
-    const header = {
-      headers: new HttpHeaders({
-        "Authorization": `Basic ${authorization}`
-      }),
-      observe: "response" as "body",
-      responseType: "json" as "json"
-    };
-
-    return header;
-  }
 }

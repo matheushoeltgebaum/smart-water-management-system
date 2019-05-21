@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
   selector: "app-chart",
@@ -6,17 +6,21 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./chart.component.scss"]
 })
 export class ChartComponent implements OnInit {
-  public chartLabels: string[] = ["2015", "2016", "2017", "2018", "2019"];
-  public chartData = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Consumo (l)'},
-  ];
+
+  @Input()
+  public chartData: Array<any>;
+
+  @Input()
+  public chartLabels: Array<any>;
   public chartType = "bar";
   public chartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    aspectRatio: 3,
+    maintainAspectRatio: false
   };
 
-  public chartColors = [{ backgroundColor: "#40e0d0" }];
+  public chartColors = [{ backgroundColor: "#40e0d0", borderColor: "#00c2ad", borderWidth: 2 }];
 
   constructor() {}
 

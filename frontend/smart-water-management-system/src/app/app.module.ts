@@ -9,7 +9,8 @@ import { LoginComponent } from "./login/login.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartComponent } from './shared/chart/chart.component';
 import { NavComponent } from './nav/nav.component';
-import { ChartsModule } from 'ng2-charts';
+//import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations:

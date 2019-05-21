@@ -32,9 +32,11 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(params).subscribe(
       response => {
-        let apiUser = response.body.apiUser;
+        /*let apiUser = response.body.apiUser;
         let apiPassword = response.body.apiPassword;
-        localStorage.setItem('auth', window.btoa(apiUser + ':' + apiPassword));
+        localStorage.setItem('auth', window.btoa(apiUser + ':' + apiPassword));*/
+        let deviceId = response.body.deviceId;
+        localStorage.setItem('deviceId', deviceId);
         this.router.navigate(['/dashboard']);
       },
       error => {

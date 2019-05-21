@@ -14,6 +14,6 @@ export class LoginService {
   public login(params) : Observable<any> {
     const body = JSON.stringify(params);
     const header = SmartWaterHeaders.get();
-    return this.http.post(environment.serverUrl + '/sigfoxCredentials', body, header);
+    return this.http.post(environment.serverUrl + '/credentials', body, header);
   }
 }

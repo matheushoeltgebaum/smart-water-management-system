@@ -5,9 +5,9 @@
         <div class="card-body">
           <div class="chart">
             <canvas
-              id="levelChart"
-              style="height: 200px"
-              baseChart
+              *ngIf="chartLabels"
+              style="min-height: 400px"
+              mdbChart
               [datasets]="chartData"
               [labels]="chartLabels"
               [chartType]="chartType"
