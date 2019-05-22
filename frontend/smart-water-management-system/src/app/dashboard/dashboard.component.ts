@@ -15,10 +15,14 @@ export class DashboardComponent implements OnInit {
   constructor(private sigfoxService: SigfoxService) {}
 
   ngOnInit() {
-    this.sigfoxService.getDeviceMessages().subscribe(
+    this.loadMessages(new Date());
+  }
+
+  loadMessages(filterDate: Date) {
+    this.sigfoxService.getDeviceMessages(filterDate).subscribe(
       response => {
-        let levels = this.getLevelsData(response);
-        let months = this.getMonthsOrdered();
+        let levels = this.getLevelsData(response, filterDate);
+        let months = this.getMonthsOrdered(filterDate);
         this.chartData = [
           { data: levels, label: "Consumo (l)" }
         ];
@@ -30,10 +34,10 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getLevelsData(waterLevels: WaterLevel[]) {
+  getLevelsData(waterLevels: WaterLevel[], filterDate: Date) {
     let monthLevels = [];
-    let currentMonth = new Date().getMonth();
-    let currentYear = new Date().getFullYear();
+    let currentMonth = filterDate.getMonth();
+    let currentYear = filterDate.getFullYear();
 
     for (let i = 0; i < 12; i++) {
       let month = currentMonth - i;
@@ -65,7 +69,7 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  getMonthsOrdered() {
+  getMonthsOrdered(filterDate: Date) {
     let months = [
       "Janeiro",
       "Fevereiro",
@@ -81,8 +85,8 @@ export class DashboardComponent implements OnInit {
       "Dezembro"
     ];
     let orderedMonths = [];
-    let currentMonth = new Date().getMonth();
-    let currentYear = new Date().getFullYear();
+    let currentMonth = filterDate.getMonth();
+    let currentYear = filterDate.getFullYear();
 
     for (let i = 0; i < 12; i++) {
       let month = currentMonth - i;
@@ -97,5 +101,9 @@ export class DashboardComponent implements OnInit {
     }
 
     return orderedMonths;
+  }
+
+  changeFilterDate(date: Date) {
+    this.loadMessages(date);
   }
 }

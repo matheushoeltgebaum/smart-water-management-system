@@ -1,22 +1,12 @@
-<div class="container-fluid py-5">
-  <div class="row">
-    <div class="col col-sm-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="chart">
-            <canvas
-              *ngIf="chartLabels"
-              style="min-height: 400px"
-              mdbChart
-              [datasets]="chartData"
-              [labels]="chartLabels"
-              [chartType]="chartType"
-              [options]="chartOptions"
-              [colors]="chartColors"
-            ></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="chart">
+    <canvas
+    *ngIf="chartLabels"
+    style="min-height: 400px"
+    mdbChart
+    [datasets]="chartData"
+    [labels]="chartLabels"
+    [chartType]="chartType"
+    [options]="chartOptions"
+    [colors]="chartColors"
+    ></canvas>
 </div>

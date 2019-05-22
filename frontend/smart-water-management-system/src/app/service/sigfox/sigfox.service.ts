@@ -11,10 +11,11 @@ import { Observable } from 'rxjs';
 export class SigfoxService {
   constructor(public http: HttpClient) {}
 
-  public getDeviceMessages() {
+  public getDeviceMessages(filterDate: Date) {
     let deviceId = localStorage.getItem("deviceId");
     const body = {
-      deviceId: deviceId
+      deviceId: deviceId,
+      date: filterDate
     };
 
     return this.http.post<WaterLevel[]>(environment.serverUrl + "/messages", body);

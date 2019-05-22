@@ -9,8 +9,12 @@ import { LoginComponent } from "./login/login.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartComponent } from './shared/chart/chart.component';
 import { NavComponent } from './nav/nav.component';
-//import { ChartsModule } from 'ng2-charts';
 import { ChartsModule } from 'angular-bootstrap-md';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { MonthpickerComponent } from './shared/monthpicker/monthpicker.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations:
@@ -19,7 +23,8 @@ import { ChartsModule } from 'angular-bootstrap-md';
     LoginComponent,
     DashboardComponent,
     ChartComponent,
-    NavComponent
+    NavComponent,
+    MonthpickerComponent
   ],
   imports:
   [
@@ -28,7 +33,11 @@ import { ChartsModule } from 'angular-bootstrap-md';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
