@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'variables';
-@import '../node_modules/bootstrap/scss/bootstrap';
+@import "variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-html, body, section {
-    height: 100%;
+.container {
+  min-height: 100vh;
 }

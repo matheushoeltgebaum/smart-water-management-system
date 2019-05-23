@@ -2,7 +2,7 @@
   <input
     matInput
     [matDatepicker]="dp"
-    placeholder="Início do período"
+    placeholder={{this.label}}
     [formControl]="date"
     [min]="minDate"
     [max]="maxDate"

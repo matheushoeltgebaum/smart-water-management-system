@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import {
@@ -42,6 +42,9 @@ export class MonthpickerComponent implements OnInit {
   minDate = new Date(2018, 0, 1);
   maxDate = new Date();
   date = new FormControl({ value: moment(), disabled: true });
+
+  @Input()
+  label: string;
 
   @Output()
   change: EventEmitter<any> = new EventEmitter();

@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  selector: "app-nav",
+  templateUrl: "./nav.component.html",
+  styleUrls: ["./nav.component.scss"]
 })
 export class NavComponent implements OnInit {
+  public navbarCollapsed = true;
 
-  constructor() { }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  logout() {
+    localStorage.removeItem("deviceId");
+    this.router.navigate(["/login"]);
   }
-
 }

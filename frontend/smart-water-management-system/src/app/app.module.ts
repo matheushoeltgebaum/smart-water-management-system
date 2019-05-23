@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./login/login.component";
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartComponent } from './shared/chart/chart.component';
 import { NavComponent } from './nav/nav.component';
 import { ChartsModule } from 'angular-bootstrap-md';
@@ -15,16 +14,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MonthpickerComponent } from './shared/monthpicker/monthpicker.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { YearlyConsumptionComponent } from './yearly-consumption/yearly-consumption.component';
+import { MonthlyConsumptionComponent } from './monthly-consumption/monthly-consumption.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations:
   [
     AppComponent,
     LoginComponent,
-    DashboardComponent,
     ChartComponent,
     NavComponent,
-    MonthpickerComponent
+    MonthpickerComponent,
+    YearlyConsumptionComponent,
+    MonthlyConsumptionComponent
   ],
   imports:
   [
@@ -37,7 +40,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

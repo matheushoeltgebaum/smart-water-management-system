@@ -1,16 +1,17 @@
 import { WaterLevel } from "./../model/water-level";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { SigfoxService } from "../service/sigfox/sigfox.service";
 
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"]
+  selector: 'app-yearly-consumption',
+  templateUrl: './yearly-consumption.component.html',
+  styleUrls: ['./yearly-consumption.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class YearlyConsumptionComponent implements OnInit {
   public waterLevels: WaterLevel[];
   public chartData: Array<any>;
   public chartLabels: Array<any>;
+  public label = 'Mês final de consumo';
 
   constructor(private sigfoxService: SigfoxService) {}
 
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadMessages(filterDate: Date) {
-    this.sigfoxService.getDeviceMessages(filterDate).subscribe(
+    this.sigfoxService.getYearlyDeviceMessages(filterDate).subscribe(
       response => {
         let levels = this.getLevelsData(response, filterDate);
         let months = this.getMonthsOrdered(filterDate);
