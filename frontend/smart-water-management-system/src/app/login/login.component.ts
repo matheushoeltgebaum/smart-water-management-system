@@ -3,6 +3,7 @@ import { LoginService } from "./../service/login/login.service";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-login",
@@ -17,7 +18,13 @@ export class LoginComponent implements OnInit {
 
   showErrorMessage = false;
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle("Login");
+  }
 
   ngOnInit() {
     if (this.isLogged()) {

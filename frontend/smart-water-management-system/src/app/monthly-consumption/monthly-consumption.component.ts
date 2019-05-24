@@ -1,6 +1,7 @@
 import { WaterLevel } from "./../model/water-level";
 import { Component, OnInit } from "@angular/core";
 import { SigfoxService } from "../service/sigfox/sigfox.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-monthly-consumption",
@@ -13,7 +14,12 @@ export class MonthlyConsumptionComponent implements OnInit {
   public chartLabels: Array<any>;
   public label = "Mês de consumo";
 
-  constructor(private sigfoxService: SigfoxService) {}
+  constructor(
+    private sigfoxService: SigfoxService,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle("Consumo mensal");
+  }
 
   ngOnInit() {
     this.loadMessages(new Date());

@@ -1,19 +1,25 @@
 import { WaterLevel } from "./../model/water-level";
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { SigfoxService } from "../service/sigfox/sigfox.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-yearly-consumption',
-  templateUrl: './yearly-consumption.component.html',
-  styleUrls: ['./yearly-consumption.component.scss']
+  selector: "app-yearly-consumption",
+  templateUrl: "./yearly-consumption.component.html",
+  styleUrls: ["./yearly-consumption.component.scss"]
 })
 export class YearlyConsumptionComponent implements OnInit {
   public waterLevels: WaterLevel[];
   public chartData: Array<any>;
   public chartLabels: Array<any>;
-  public label = 'Mês final de consumo';
+  public label = "Mês final de consumo";
 
-  constructor(private sigfoxService: SigfoxService) {}
+  constructor(
+    private sigfoxService: SigfoxService,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle("Consumo anual");
+  }
 
   ngOnInit() {
     this.loadMessages(new Date());
@@ -24,9 +30,7 @@ export class YearlyConsumptionComponent implements OnInit {
       response => {
         let levels = this.getLevelsData(response, filterDate);
         let months = this.getMonthsOrdered(filterDate);
-        this.chartData = [
-          { data: levels, label: "Consumo (l)" }
-        ];
+        this.chartData = [{ data: levels, label: "Consumo (l)" }];
         this.chartLabels = months;
       },
       error => {
@@ -56,11 +60,7 @@ export class YearlyConsumptionComponent implements OnInit {
     return monthLevels.map(level => Math.fround(level.data));
   }
 
-  getLevelOfMonth(
-    waterLevels: WaterLevel[],
-    monthIndex: number,
-    year: number
-  ) {
+  getLevelOfMonth(waterLevels: WaterLevel[], monthIndex: number, year: number) {
     let time = Date.parse(new Date(year, monthIndex, 1).toDateString());
     return waterLevels
       .filter(level => new Date(level.time).getMonth() == monthIndex)
