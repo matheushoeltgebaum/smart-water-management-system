@@ -6,6 +6,7 @@
     [formControl]="date"
     [min]="minDate"
     [max]="maxDate"
+    (dateChange)="chosenDateHandler($event)"
   />
   <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
   <mat-datepicker

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { WaterLevel } from 'src/app/model/water-level';
+import { SmartWaterHeaders } from 'src/common/headers';
 
 @Injectable({
   providedIn: "root"
@@ -15,8 +16,9 @@ export class SigfoxService {
       deviceId: deviceId,
       date: filterDate
     };
+    const header = SmartWaterHeaders.getAuth(localStorage.getItem('token'));
 
-    return this.http.post<WaterLevel[]>(environment.serverUrl + "/yearlyMessages", body);
+    return this.http.post<WaterLevel[]>(environment.serverUrl + "/yearlyMessages", body, header);
   }
 
   public getMonthlyDeviceMessages(filterDate: Date) {
@@ -25,7 +27,8 @@ export class SigfoxService {
       deviceId: deviceId,
       date: filterDate
     };
+    const header = SmartWaterHeaders.getAuth(localStorage.getItem('token'));
 
-    return this.http.post<WaterLevel[]>(environment.serverUrl + '/monthlyMessages', body);
+    return this.http.post<WaterLevel[]>(environment.serverUrl + '/monthlyMessages', body, header);
   }
 }

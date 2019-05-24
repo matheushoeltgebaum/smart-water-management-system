@@ -1,3 +1,4 @@
+import { AuthGuard } from './../common/auth.guard';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { YearlyConsumptionComponent } from './yearly-consumption/yearly-consumption.component';
 import { MonthlyConsumptionComponent } from './monthly-consumption/monthly-consumption.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations:
@@ -41,9 +43,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    JwtModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

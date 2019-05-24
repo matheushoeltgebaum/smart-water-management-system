@@ -1,6 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 
 export class SmartWaterHeaders {
+
   static get() {
     const header = {
       headers: new HttpHeaders({
@@ -8,6 +9,17 @@ export class SmartWaterHeaders {
       }),
       observe: "response" as "body",
       responseType: "json" as "json"
+    };
+
+    return header;
+  }
+
+  static getAuth(authorization) {
+    const header = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: authorization
+      })
     };
 
     return header;

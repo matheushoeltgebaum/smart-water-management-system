@@ -22,7 +22,6 @@ export class MonthlyConsumptionComponent implements OnInit {
   loadMessages(filterDate: Date) {
     this.sigfoxService.getMonthlyDeviceMessages(filterDate).subscribe(
       response => {
-        console.log(response);
         let levels = this.getLevelsData(response, filterDate);
         let days = this.getDaysOrdered(filterDate);
         this.chartData = [{ data: levels, label: "Consumo (l)" }];

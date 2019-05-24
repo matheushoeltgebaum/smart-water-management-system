@@ -1,3 +1,4 @@
+import { AuthGuard } from './../common/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -5,10 +6,11 @@ import { YearlyConsumptionComponent } from './yearly-consumption/yearly-consumpt
 import { MonthlyConsumptionComponent } from './monthly-consumption/monthly-consumption.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'yearly', component: YearlyConsumptionComponent },
-  { path: 'monthly', component: MonthlyConsumptionComponent }
+  { path: 'yearly', component: YearlyConsumptionComponent, canActivate: [AuthGuard] },
+  { path: 'monthly', component: MonthlyConsumptionComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', component: LoginComponent },
 ];
 
 @NgModule({

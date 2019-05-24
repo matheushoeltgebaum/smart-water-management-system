@@ -6,7 +6,7 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE
 } from "@angular/material/core";
-import { MatDatepicker } from "@angular/material/datepicker";
+import { MatDatepicker, MatDatepickerInputEvent } from "@angular/material/datepicker";
 import * as _moment from "moment";
 import { default as _rollupMoment, Moment } from "moment";
 
@@ -67,6 +67,14 @@ export class MonthpickerComponent implements OnInit {
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
+    this.change.emit(this.date.value.toDate());
+  }
+
+  chosenDateHandler(event) {
+    const ctrlValue = this.date.value;
+    ctrlValue.year(event.value.year());
+    ctrlValue.month(event.value.month());
+    this.date.setValue(ctrlValue);
     this.change.emit(this.date.value.toDate());
   }
 }

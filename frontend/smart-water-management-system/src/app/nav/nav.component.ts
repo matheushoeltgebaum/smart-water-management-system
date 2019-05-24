@@ -15,6 +15,7 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem("deviceId");
+    localStorage.removeItem("token");
     this.router.navigate(["/login"]);
   }
 }

@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../common/auth.guard';
 import { LoginService } from "./../service/login/login.service";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -19,7 +20,12 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.isLogged()) {
+      console.log('logged');
+      this.router.navigate(['/yearly']);
+    }
+  }
 
   login() {
     let username = this.loginForm.value.username;
@@ -33,6 +39,8 @@ export class LoginComponent implements OnInit {
     this.loginService.login(params).subscribe(
       response => {
         let deviceId = response.body.deviceId;
+        let token = response.body.token;
+        localStorage.setItem('token', token);
         localStorage.setItem('deviceId', deviceId);
         this.router.navigate(['/yearly']);
       },
@@ -41,6 +49,11 @@ export class LoginComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  isLogged() {
+    const auth = new AuthGuard(this.router);
+    return auth.isLogged();
   }
 
   get username() {
