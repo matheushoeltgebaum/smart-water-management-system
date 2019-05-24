@@ -1,4 +1,4 @@
-import { AuthGuard } from './../../common/auth.guard';
+import { AuthGuard } from "./../../common/auth.guard";
 import { LoginService } from "./../service/login/login.service";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -15,19 +15,18 @@ export class LoginComponent implements OnInit {
     password: new FormControl("", Validators.required)
   });
 
-  constructor(
-    private router: Router,
-    private loginService: LoginService
-  ) {}
+  showErrorMessage = false;
+
+  constructor(private router: Router, private loginService: LoginService) {}
 
   ngOnInit() {
     if (this.isLogged()) {
-      console.log('logged');
-      this.router.navigate(['/yearly']);
+      this.router.navigate(["/yearly"]);
     }
   }
 
   login() {
+    this.showErrorMessage = false;
     let username = this.loginForm.value.username;
     let password = this.loginForm.value.password;
 
@@ -40,12 +39,12 @@ export class LoginComponent implements OnInit {
       response => {
         let deviceId = response.body.deviceId;
         let token = response.body.token;
-        localStorage.setItem('token', token);
-        localStorage.setItem('deviceId', deviceId);
-        this.router.navigate(['/yearly']);
+        localStorage.setItem("token", token);
+        localStorage.setItem("deviceId", deviceId);
+        this.router.navigate(["/yearly"]);
       },
       error => {
-          //Adicionar tratamento para erros.
+        this.showErrorMessage = true;
         console.log(error);
       }
     );
