@@ -1,21 +1,29 @@
-<mat-form-field>
-  <input
-    matInput
-    [matDatepicker]="dp"
-    placeholder={{this.label}}
-    [formControl]="date"
-    [min]="minDate"
-    [max]="maxDate"
-    (dateChange)="chosenDateHandler($event)"
-  />
-  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-  <mat-datepicker
-    #dp
-    startView="multi-year"
-    (yearSelected)="chosenYearHandler($event)"
-    (monthSelected)="chosenMonthHandler($event, dp)"
-    panelClass="example-month-picker"
-    disabled="false"
-  >
-  </mat-datepicker>
-</mat-form-field>
+<div class="monthpicker">
+  <mat-form-field>
+    <input
+      matInput
+      [matDatepicker]="dp"
+      placeholder="{{ this.label }}"
+      [formControl]="date"
+      [min]="minDate"
+      [max]="maxDate"
+      (dateChange)="chosenDateHandler($event)"
+    />
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker
+      #dp
+      startView="multi-year"
+      (yearSelected)="chosenYearHandler($event)"
+      (monthSelected)="chosenMonthHandler($event, dp)"
+      panelClass="example-month-picker"
+      disabled="false"
+    >
+    </mat-datepicker>
+  </mat-form-field>
+  <div class="monthpicker-pagination">
+    <div *ngIf="canGoBack"><img class="pagination" src="../../../assets/angle-left-solid.svg" (click)="prevMonth()"></div>
+    <div *ngIf="!canGoBack"><img class="pagination-disabled" src="../../../assets/angle-left-solid-disabled.svg"></div>
+    <div *ngIf="canGoForward"><img class="pagination" src="../../../assets/angle-right-solid.svg" (click)="nextMonth()"></div>
+    <div *ngIf="!canGoForward"><img class="pagination-disabled" src="../../../assets/angle-right-solid-disabled.svg"></div>
+  </div>
+</div>

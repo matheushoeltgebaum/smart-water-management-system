@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   });
 
   showErrorMessage = false;
+  loading = false;
 
   constructor(
     private router: Router,
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.showErrorMessage = false;
+    this.loading = true;
     let username = this.loginForm.value.username;
     let password = this.loginForm.value.password;
 
@@ -48,9 +50,11 @@ export class LoginComponent implements OnInit {
         let token = response.body.token;
         localStorage.setItem("token", token);
         localStorage.setItem("deviceId", deviceId);
+        this.loading = false;
         this.router.navigate(["/yearly"]);
       },
       error => {
+        this.loading = false;
         this.showErrorMessage = true;
         console.log(error);
       }

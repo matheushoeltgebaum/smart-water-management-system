@@ -5,3 +5,29 @@
 .example-month-picker .mat-calendar-arrow {
   display: none;
 }
+
+.monthpicker {
+  display: flex;
+  justify-content: space-between;
+}
+
+.monthpicker-field {
+  flex: 1;
+}
+
+.monthpicker-pagination {
+  width: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination {
+  margin-top: 20px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.pagination-disabled {
+  margin-top: 20px;
+  height: 15px;
+}

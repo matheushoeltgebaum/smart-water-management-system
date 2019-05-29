@@ -6,7 +6,10 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE
 } from "@angular/material/core";
-import { MatDatepicker, MatDatepickerInputEvent } from "@angular/material/datepicker";
+import {
+  MatDatepicker,
+  MatDatepickerInputEvent
+} from "@angular/material/datepicker";
 import * as _moment from "moment";
 import { default as _rollupMoment, Moment } from "moment";
 
@@ -49,6 +52,9 @@ export class MonthpickerComponent implements OnInit {
   @Output()
   change: EventEmitter<any> = new EventEmitter();
 
+  canGoBack = true;
+  canGoForward = false;
+
   constructor() {}
 
   ngOnInit() {}
@@ -64,17 +70,52 @@ export class MonthpickerComponent implements OnInit {
     datepicker: MatDatepicker<Moment>
   ) {
     const ctrlValue = this.date.value;
+    let nextMonth = normalizedMonth.month() > ctrlValue.month();
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
     this.change.emit(this.date.value.toDate());
+    this.processPagination(nextMonth);
   }
 
   chosenDateHandler(event) {
     const ctrlValue = this.date.value;
+    let nextMonth = event.value.year() > ctrlValue.year() || event.value.month() > ctrlValue.month();
     ctrlValue.year(event.value.year());
     ctrlValue.month(event.value.month());
     this.date.setValue(ctrlValue);
     this.change.emit(this.date.value.toDate());
+    this.processPagination(nextMonth);
+  }
+
+  prevMonth() {
+    const ctrlValue = this.date.value;
+    ctrlValue.month(ctrlValue.month() - 1);
+    this.date.setValue(ctrlValue);
+    this.change.emit(this.date.value.toDate());
+    this.processPagination(false);
+  }
+
+  nextMonth() {
+    const ctrlValue = this.date.value;
+    ctrlValue.month(ctrlValue.month() + 1);
+    this.date.setValue(ctrlValue);
+    this.change.emit(this.date.value.toDate());
+    this.processPagination(true);
+  }
+
+  processPagination(nextMonth: boolean) {
+    let date = this.date.value.toDate();
+    let currentTimeStamp = Date.parse(
+      new Date(
+        date.getFullYear(),
+        nextMonth ? date.getMonth() + 1 : date.getMonth() - 1,
+        1
+      ).toDateString()
+    );
+    let prevLimitTimeStamp = Date.parse(this.minDate.toDateString());
+    let nextLimitTimeStamp = Date.parse(this.maxDate.toDateString());
+    this.canGoBack = currentTimeStamp >= prevLimitTimeStamp;
+    this.canGoForward = currentTimeStamp <= nextLimitTimeStamp;
   }
 }
