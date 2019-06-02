@@ -57,7 +57,7 @@ export class YearlyConsumptionComponent implements OnInit {
       monthLevels.push(currentLevel);
     }
 
-    return monthLevels.map(level => Math.fround(level.data));
+    return monthLevels.map(level => level.data.toFixed(1));
   }
 
   getLevelOfMonth(waterLevels: WaterLevel[], monthIndex: number, year: number) {

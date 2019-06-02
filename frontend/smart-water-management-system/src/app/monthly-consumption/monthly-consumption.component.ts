@@ -55,7 +55,7 @@ export class MonthlyConsumptionComponent implements OnInit {
       dayLevels.push(currentLevel);
     }
 
-    return dayLevels.map(level => Math.fround(level.data));
+    return dayLevels.map(level => level.data.toFixed(1));
   }
 
   getLevelOfDay(
